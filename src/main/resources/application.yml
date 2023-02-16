@@ -1,0 +1,60 @@
+spring:
+  profiles:
+      group:
+        "default": "dev,common"
+        "dev": "dev,common"
+        "prod": "prod,common"
+
+---
+
+# server:
+#   servlet:
+#     encoding:
+#       charset: UTF-8
+
+spring:
+  config:
+    activate:
+      on-profile: "common"
+  
+  #   hikari:
+  #     maximum-pool-size: 4
+  #     connection-timeout: 5000
+  #     connection-init-sql: SELECT 1
+  #     validation-timeout: 2000
+  #     minimum-idle: 10
+  #     idle-timeout: 600000
+  #     max-lifetime: 1800000
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB 
+  # jackson:
+  #   serialization:
+  #     fail-on-empty-beans: false
+  # 스프링 시큐리티 임시 비활성
+  # SecurityConfig.java에서도 @Configuration, @EnableWebSecurity를 주석처리하여 비활성 적용
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+server:
+  port: ${port}
+
+logging:
+  level: 
+    root: INFO
+    jdbc:
+      resultset: FATAL
+      audit: FATAL
+      connection: FATAL
+      sqltiming: FATAL
+    org:
+      hibernate: 
+        type:
+          descriptor:
+            sql: trace
+
+mybatis:
+  config-location: classpath:mapper-config.xml
+  mapper-locations: classpath:mapper/**/**.xml

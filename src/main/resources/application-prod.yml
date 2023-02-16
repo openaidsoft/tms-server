@@ -1,0 +1,26 @@
+app:
+  upload-dir: ${upload-dir}
+  console-log-charset: ${console-log-charset}
+
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:oracle:thin:@localhost:1120/xe
+    username: OA
+    password: OA
+  jpa:
+    database: oracle
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.Oracle12cDialect
+  sql:
+    init:
+      mode: never

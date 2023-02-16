@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kospo.tms.demo.mybatis.post.service.impl.PostMapper">
+
+	<!-- <![CDATA[
+		SELECT * FROM POST
+		SELECT * FROM ${type}.POST
+		]]> -->
+	<select id="getList" resultType="kr.co.kospo.tms.demo.mybatis.post.service.PostDto">
+		SELECT * FROM OA${type}.POST
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test='postId != null and postId != ""'>
+				AND POST_ID = #{postId}
+			</if>
+			<if test='author != null and author != ""'>
+				AND AUTHOR LIKE '%'||#{author}||'%'
+			</if>
+			<if test='title != null and title != ""'>
+				AND TITLE LIKE '%'||#{title}||'%'
+			</if>
+			<if test='content != null and content != ""'>
+				AND CONTENT LIKE '%'||#{content}||'%'
+			</if>
+			<if test='sDate != null and sDate != "" and eDate != null and eDate != ""'>
+				AND C_DATE BETWEEN TO_DATE(#{sDate}) AND TO_DATE(#{eDate})
+			</if>
+			<if test='memo != null and memo != ""'>
+				AND MEMO LIKE '%'||#{memo}||'%'
+			</if>
+		</trim>
+	</select>
+
+  </mapper>
